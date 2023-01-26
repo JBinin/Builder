@@ -34,7 +34,7 @@ RUN cd yaml-cpp && mkdir build ; cd build && cmake -DBUILD_SHARED_LIBS=ON .. && 
     cd .. && rm -rf build && cd ..
 
 # onnx
-RUN apt install libprotobuf-dev protobuf-compiler -ys
+RUN apt install libprotobuf-dev protobuf-compiler -y
 RUN git clone --recursive https://github.com/onnx/onnx.git --depth 1
 RUN cd onnx && mkdir build ; cd build && cmake .. && make -j$(nproc) && make install -j$(nproc) && \
     cd .. && rm -rf build && cd ..
