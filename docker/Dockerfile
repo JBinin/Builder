@@ -23,25 +23,9 @@ RUN git clone https://github.com/fmtlib/fmt.git --depth 1 && cd fmt && \
 
 # folly
 RUN apt-get update && \
-    apt install libgoogle-glog-dev && \
-    libboost-all-dev \
-    libevent-dev \
-    libdouble-conversion-dev \
-    libgoogle-glog-dev \
-    libgflags-dev \
-    libiberty-dev \
-    liblz4-dev \
-    liblzma-dev \
-    libsnappy-dev \
-    zlib1g-dev \
-    binutils-dev \
-    libjemalloc-dev \
-    libssl-dev \
-    pkg-config \
-    libunwind-dev \
-    libunwind8-dev \
-    libelf-dev \
-    libdwarf-dev -y && \
+    apt install libgoogle-glog-dev libboost-all-dev libevent-dev libdouble-conversion-dev libgoogle-glog-dev -y && \
+    apt install libgflags-dev libiberty-dev liblz4-dev liblzma-dev libsnappy-dev zlib1g-dev binutils-dev -y && \
+    apt install libjemalloc-dev libssl-dev pkg-config libunwind-dev libunwind8-dev libelf-dev libdwarf-dev -y && \
     rm -rf /var/lib/apt/lists/*
 
 RUN git clone https://github.com/facebook/folly.git && cd folly && \
