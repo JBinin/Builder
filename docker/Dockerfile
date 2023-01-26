@@ -24,7 +24,7 @@ RUN apt install libgoogle-glog-dev libboost-all-dev libevent-dev libdouble-conve
     apt install libgflags-dev libiberty-dev liblz4-dev liblzma-dev libsnappy-dev zlib1g-dev binutils-dev -y && \
     apt install libjemalloc-dev libssl-dev pkg-config libunwind-dev libunwind8-dev libelf-dev libdwarf-dev -y
 
-RUN git clone https://github.com/facebook/folly.git && git checkout 530a7266f9f15eaad196ce1b291fbbfc8e578810
+RUN git clone https://github.com/facebook/folly.git && cd folly && git checkout 530a7266f9f15eaad196ce1b291fbbfc8e578810 && cd ..
 RUN cd folly && mkdir _build && cd _build && \
     cmake .. && make -j$(nproc) && make install -j$(nproc) && cd .. && rm -rf _build && cd ..
 
