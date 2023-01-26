@@ -31,7 +31,7 @@ RUN cd folly && mkdir _build && cd _build && \
 # yaml-cpp
 RUN git clone https://github.com/jbeder/yaml-cpp.git --depth 1
 RUN cd yaml-cpp && mkdir build ; cd build && cmake -DBUILD_SHARED_LIBS=ON .. && make -j$(nproc) && make install -j$(nproc) && \
-    cd .. && rm -rf build && cd .. \
+    cd .. && rm -rf build && cd ..
 
 # onnx
 RUN apt install libprotobuf-dev protobuf-compiler -ys
