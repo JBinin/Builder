@@ -41,10 +41,10 @@ RUN apt-get update && \
     libunwind-dev \
     libunwind8-dev \
     libelf-dev \
-    libdwarf-dev && \
+    libdwarf-dev -y && \
     rm -rf /var/lib/apt/lists/*
 
-RUN git clone https://github.com/facebook/folly.git --depth 1 && cd folly && \
+RUN git clone https://github.com/facebook/folly.git && cd folly && \
     git checkout 530a7266f9f15eaad196ce1b291fbbfc8e578810 && \
     mkdir _build && cd _build && \
     cmake .. && make -j$(nproc) && make install -j$(nproc) && cd .. && rm -rf _build
