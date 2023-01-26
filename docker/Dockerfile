@@ -22,7 +22,7 @@ RUN cd fmt && mkdir _build && cd _build && \
 # folly
 RUN apt install libgoogle-glog-dev libboost-all-dev libevent-dev libdouble-conversion-dev libgoogle-glog-dev -y && \
     apt install libgflags-dev libiberty-dev liblz4-dev liblzma-dev libsnappy-dev zlib1g-dev binutils-dev -y && \
-    apt install libjemalloc-dev libssl-dev pkg-config libunwind-dev libunwind8-dev libelf-dev libdwarf-dev -y && \
+    apt install libjemalloc-dev libssl-dev pkg-config libunwind-dev libunwind8-dev libelf-dev libdwarf-dev -y
 
 RUN git clone https://github.com/facebook/folly.git && git checkout 530a7266f9f15eaad196ce1b291fbbfc8e578810
 RUN cd folly && mkdir _build && cd _build && \
@@ -34,7 +34,7 @@ RUN cd yaml-cpp && mkdir build ; cd build && cmake -DBUILD_SHARED_LIBS=ON .. && 
     cd .. && rm -rf build && cd .. \
 
 # onnx
-RUN apt install libprotobuf-dev protobuf-compiler -y && \
+RUN apt install libprotobuf-dev protobuf-compiler -ys
 RUN git clone --recursive https://github.com/onnx/onnx.git --depth 1
 RUN cd onnx && mkdir build ; cd build && cmake .. && make -j$(nproc) && make install -j$(nproc) && \
     cd .. && rm -rf build && cd ..
