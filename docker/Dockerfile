@@ -4,12 +4,6 @@ ENV DEBIAN_FRONTEND=noninteractive
 #RUN sed -i s@/archive.ubuntu.com/@/mirrors.aliyun.com/@g /etc/apt/sources.list && \
 #    sed -i s@/security.ubuntu.com/@/mirrors.aliyun.com/@g /etc/apt/sources.list
 RUN apt-get update
-# onnx
-RUN apt install python-dev-is-python3 libprotobuf-dev protobuf-compiler -y && \
-    git clone --recursive https://github.com/onnx/onnx.git --depth 1 && \
-    cd onnx && mkdir build ; cd build && cmake .. && make -j$(nproc) && make install -j$(nproc) && \
-    cd .. && rm -rf build && cd ..
-
 # opencv
 RUN apt install libgtk2.0-dev pkg-config libavcodec-dev libavformat-dev libswscale-dev -y && \
     apt install python-dev-is-python3 python-numpy libtbb2 libtbb-dev libjpeg-dev libpng-dev libtiff-dev libdc1394-22-dev libtiff5-dev libx264-dev -y \
@@ -36,6 +30,12 @@ RUN git clone https://github.com/facebook/folly.git && cd folly && \
 # yaml-cpp
 RUN git clone https://github.com/jbeder/yaml-cpp.git --depth 1 && \
     cd yaml-cpp && mkdir build ; cd build && cmake -DBUILD_SHARED_LIBS=ON .. && make -j$(nproc) && make install -j$(nproc) && \
+    cd .. && rm -rf build && cd .. \
+
+# onnx
+RUN apt install libprotobuf-dev protobuf-compiler -y && \
+    git clone --recursive https://github.com/onnx/onnx.git --depth 1 && \
+    cd onnx && mkdir build ; cd build && cmake .. && make -j$(nproc) && make install -j$(nproc) && \
     cd .. && rm -rf build && cd ..
 
 # libjpeg-turbo
