@@ -12,8 +12,7 @@ RUN apt install python-dev-is-python3 libprotobuf-dev protobuf-compiler -y && \
 
 # opencv
 RUN apt install libgtk2.0-dev pkg-config libavcodec-dev libavformat-dev libswscale-dev -y && \
-    apt install python-dev-is-python3 python-numpy libtbb2 libtbb-dev libjpeg-dev libpng-dev libtiff-dev libdc1394-22-dev libtiff5-dev libx264-dev -y && \
-    rm -rf /var/lib/apt/lists/*
+    apt install python-dev-is-python3 python-numpy libtbb2 libtbb-dev libjpeg-dev libpng-dev libtiff-dev libdc1394-22-dev libtiff5-dev libx264-dev -y \
 RUN git clone https://github.com/opencv/opencv.git --depth 1 && \
     git clone https://github.com/opencv/opencv_contrib.git --depth 1 && \
     cd opencv && \
