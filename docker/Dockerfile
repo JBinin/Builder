@@ -1,4 +1,8 @@
 # FROM nvidia/cuda:11.3.0-devel-ubuntu20.04
+# Ubuntu 20.04
+# TensorRT 8.0.1.6
+# NVIDIA CUDA 11.4.0
+# https://docs.nvidia.com/deeplearning/tensorrt/container-release-notes/rel_21-07.html#rel_21-07
 FROM nvcr.io/nvidia/tensorrt:21.07-py3
 ENV DEBIAN_FRONTEND=noninteractive
 #RUN sed -i s@/archive.ubuntu.com/@/mirrors.aliyun.com/@g /etc/apt/sources.list && \
