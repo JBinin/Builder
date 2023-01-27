@@ -18,7 +18,6 @@
 #include "data_loader.h"
 #include "calibrator.h"
 
-
 // This should possibly be an abstract base class, but we're only using ONNX for now
 class InferenceServer {
  public:
@@ -39,7 +38,7 @@ class OnnxInferenceServer : public InferenceServer {
   nvinfer1::Logger gLogger;
   std::unique_ptr<nvinfer1::ICudaEngine> engine{nullptr};
   // std::unique_ptr<nvinfer1::IExecutionContext, nvinfer1::Destroy<nvinfer1::IExecutionContext>> context{nullptr};
-  std::vector<std::unique_ptr<nvinfer1::IExecutionContext> > contexts;
+  std::vector<std::unique_ptr<nvinfer1::IExecutionContext> contexts;
   void *bindings[kNbStreams_][2];
   cudawrapper::CudaStream streams[kNbStreams_];
 
@@ -83,15 +82,6 @@ class OnnxInferenceServer : public InferenceServer {
       const size_t kBatchSize, const bool kDoMemcpy,
       const DataLoader *kLoader = nullptr,
       const std::vector<CompressedImage>& kCompressedImages = std::vector<CompressedImage>(0),
-      const bool kDoINT8 = false,
-      const bool kAddResize = false);
-
-  OnnxInferenceServer(
-      const std::string& kOnnxPath, const std::string& kOnnxPathBS1,
-      const std::string& kCachePath,
-      const size_t kBatchSize, const bool kDoMemcpy,
-      const VideoDataLoader *kLoader = nullptr,
-      const std::vector<std::string>& kFileName = std::vector<std::string>(0),
       const bool kDoINT8 = false,
       const bool kAddResize = false);
 

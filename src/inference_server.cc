@@ -125,36 +125,6 @@ OnnxInferenceServer::OnnxInferenceServer(
   LoadAndLaunch();
 }
 
-
-OnnxInferenceServer::OnnxInferenceServer(
-    const std::string& kOnnxPath, const std::string& kOnnxPathBS1,
-    const std::string& kCachePath,
-    const size_t kBatchSize, const bool kDoMemcpy,
-    const VideoDataLoader *kLoader,
-    const std::vector<std::string>& kFileNames,
-    const bool kDoINT8,
-    const bool kAddResize
-) :
-    kBatchSize_(kBatchSize),
-    queue_(omp_get_max_threads() * 3), contexts(kNbStreams_),
-    kDoMemcpy_(kDoMemcpy) {
-  BaseCalibrator *calibrator = NULL;
-  if (kDoINT8) {
-    assert(kLoader != nullptr);
-    calibrator = new VideoCalibrator(kLoader, kFileNames, kBatchSize);
-  }
-  this->engine.reset(
-      CreateCudaEngine(kOnnxPath, kOnnxPathBS1,
-                       calibrator,
-                       kDoINT8, kAddResize));
-  // Cache engine
-  std::unique_ptr<nvinfer1::IHostMemory> engine_plan{engine->serialize()};
-  nvinfer1::writeBuffer(engine_plan->data(), engine_plan->size(), kCachePath);
-
-  LoadAndLaunch();
-}
-
-
 void OnnxInferenceServer::LoadAndLaunch() {
   // Currently, we only support exactly one input/output tensor
   assert(this->engine->getNbBindings() == 2);
@@ -175,8 +145,6 @@ void OnnxInferenceServer::LoadAndLaunch() {
   for (size_t i = 0; i < kNbStreams_; i++)
     threads_.push_back(std::thread([this, i]{ _RunInferenceThread(i); }));
 }
-
-
 
 void OnnxInferenceServer::_RunInferenceThread(const size_t idx) {
   const int input_id = !contexts[idx]->getEngine().bindingIsInput(0);

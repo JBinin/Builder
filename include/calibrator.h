@@ -4,7 +4,7 @@
 #include <iostream>
 #include <iterator>
 
-#include <NvInfer.h>
+#include "NvInfer.h"
 
 #include "common.h"
 #include "data_loader.h"
